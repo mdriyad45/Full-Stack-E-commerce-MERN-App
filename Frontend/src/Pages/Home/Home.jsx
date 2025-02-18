@@ -3,7 +3,7 @@
 const Home = () => {
     return (
         <div>
-            This is home page
+            This is Home page 
         </div>
     );
 };
