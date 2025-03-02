@@ -5,7 +5,7 @@ import displayCurrency from "../../Helper/displayCurrency";
 
 const AdminProductCard = ({ data, fetchProduct }) => {
   const [editProduct, setEditProduct] = useState(false);
-  
+  console.log(editProduct)
   return (
     <div className="bg-white p-4 rounded">
       <div className="w-40">
