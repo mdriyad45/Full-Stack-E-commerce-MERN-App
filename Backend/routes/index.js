@@ -8,6 +8,7 @@ const userLogOut = require('../controller/userController/userLogOut');
 const userSignInController = require('../controller/userController/userSignIn');
 const userSignUpController = require('../controller/userController/userSignUp');
 const authToken = require('../middleware/authToken');
+const { getCategoryProduct } = require('../controller/productController/getCategoryProduct');
 
 const router = require('express').Router();
 
@@ -26,6 +27,7 @@ router.post('/update-user',authToken,updatedUser);
 router.post('/upload-product',authToken,uploadProduct);
 router.get('/get-product',getProduct);
 router.post('/update-product',authToken,updateProduct);
+router.get('/get-CategoryProduct', getCategoryProduct);
 
 
 module.exports = router;
