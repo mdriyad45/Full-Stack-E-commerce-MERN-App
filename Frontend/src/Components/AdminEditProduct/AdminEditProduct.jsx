@@ -6,7 +6,7 @@ import uploadImage from "../../Helper/uploadImage";
 import DisplayImage from "../DisplayImage/DisplayImage";
 import { MdDelete } from "react-icons/md";
 import SummaryApi from "../../common";
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 
 const AdminEditProduct = ({ productData, onClose, fetchProduct }) => {
   const [data, setData] = useState({
