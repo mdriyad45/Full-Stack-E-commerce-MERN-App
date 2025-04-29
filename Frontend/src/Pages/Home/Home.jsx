@@ -1,9 +1,10 @@
+import ProductList from "../../Components/ProductList";
 
 
 const Home = () => {
     return (
         <div>
-            This is Home page 
+            <ProductList></ProductList> 
         </div>
     );
 };
