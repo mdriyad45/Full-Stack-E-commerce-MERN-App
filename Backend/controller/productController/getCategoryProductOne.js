@@ -1,6 +1,6 @@
 import productModel from "../../models/productModel.js";
 
-export const getCategoryProduct = async (req, res) => {
+export const getCategoryProductOne = async (req, res) => {
   try {
     const productCatagory = await productModel.distinct("category");
 
