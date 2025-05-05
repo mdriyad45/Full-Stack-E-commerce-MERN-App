@@ -38,7 +38,7 @@ const Header = () => {
     <header className="h-16 shadow-md bg-white">
       <div className="h-full container mx-auto flex items-center px-4 justify-between">
         <div>
-          <Link to={"/login"}>
+          <Link to={"/"}>
             <Logo w={100} h={100}></Logo>
           </Link>
         </div>

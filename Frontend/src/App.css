@@ -14,3 +14,10 @@
 .scrollbar-none::-webkit-scrollbar{
     display: none;
 }
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+.hide-scrollbar {
+    scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  }

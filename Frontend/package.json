@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-icons/all-files": "^4.1.0",
     "@reduxjs/toolkit": "^2.3.0",
+    "aos": "^3.0.0-beta.6",
     "context": "^3.0.29",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.2",

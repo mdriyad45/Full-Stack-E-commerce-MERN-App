@@ -3,6 +3,9 @@ import productModel from "../../models/productModel.js";
 export const getCategoryProductOne = async (req, res) => {
   try {
     const productCatagory = await productModel.distinct("category");
+    if(!productCatagory){
+      throw new Error('category not found');
+    }
 
     console.log("category: ", productCatagory);
 
