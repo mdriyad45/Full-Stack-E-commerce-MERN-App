@@ -49,6 +49,10 @@ const SummaryApi = {
     url: `${backendDomain}/api/upload-multiple-products`,
     method: "post",
   },
+  productDetails: {
+    url: `${backendDomain}/api/product-details`,
+    method: 'get'
+  }
 }
 
 export default SummaryApi
