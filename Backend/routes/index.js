@@ -14,6 +14,7 @@ const {
 const {
   getCategoryWiseProduct,
 } = require("../controller/productController/getCategoryWiseProduct");
+const { getProductDetails } = require("../controller/productController/getProductDetails");
 
 const router = require("express").Router();
 
@@ -34,5 +35,6 @@ router.get("/get-product", getProduct);
 router.post("/update-product", authToken, updateProduct);
 router.get("/get-CategoryProductOne", getCategoryProductOne);
 router.post("/category-product", getCategoryWiseProduct);
+router.get('/product-details/:_id',getProductDetails);
 
 module.exports = router;

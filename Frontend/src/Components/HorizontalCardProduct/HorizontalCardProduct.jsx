@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import fetchCategoryWiseProduct from "../../Helper/fetchCategoryWiseProduct";
 import displayCurrency from "../../Helper/displayCurrency";
+import { Link } from "react-router-dom";
+import addToCart from "../../Helper/addToCart";
 
 const HorizontalCardProduct = ({ category, heading }) => {
   const [data, setData] = useState([]);
@@ -73,7 +75,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
           className="flex gap-4 overflow-x-auto scroll-smooth pb-4 hide-scrollbar px-2 touch-pan-x"
         >
           {(loading ? loadingList : data).map((product, index) => (
-            <div
+            <Link to={'product/'+product?._id}
               key={product?._id || index}
               className="flex-shrink-0 w-[280px] md:w-[320px] bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 group relative"
             >
@@ -115,13 +117,13 @@ const HorizontalCardProduct = ({ category, heading }) => {
                       </span>
                     </div>
 
-                    <button className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 active:scale-95">
+                    <button onClick={(e)=>{addToCart(e,product?._id)}} className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 active:scale-95">
                       Add to Cart
                     </button>
                   </div>
                 </>
               )}
-            </div>
+            </Link>
           ))}
         </div>
       </div>
