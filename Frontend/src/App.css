@@ -21,3 +21,6 @@
     scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   }
+  .transition-colors {
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }

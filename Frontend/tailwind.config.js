@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         primary: '#EF4444', // Your brand color
+        'primary-dark': '#DC2626',
       },
       backgroundImage: {
         'gradient-shimmer': 'linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%)',
