@@ -7,7 +7,7 @@ export const getCategoryProductOne = async (req, res) => {
       throw new Error('category not found');
     }
 
-    console.log("category: ", productCatagory);
+    
 
     //array to store one product from each category
     const productByCategory = [];

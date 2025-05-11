@@ -3,7 +3,7 @@ import productModel from "../../models/productModel.js";
 export const getProductDetails = async (req, res) => {
   try {
     const  productId  = req.params._id;
-    console.log(productId)
+    
     if (!productId) {
       throw new Error("Product Id not found");
     }

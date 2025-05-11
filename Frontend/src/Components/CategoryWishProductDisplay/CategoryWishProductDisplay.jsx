@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import fetchCategoryWiseProduct from "../../Helper/fetchCategoryWiseProduct";
 import displayCurrency from "../../Helper/displayCurrency";
 import { Link } from "react-router-dom";
 import addToCart from "../../Helper/addToCart";
+import Context from "../../Context";
 
 const CategoryWishProductDisplay = ({ category, heading }) => {
+  const {fetchAddToCartCount} = useContext(Context);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,6 +25,11 @@ const CategoryWishProductDisplay = ({ category, heading }) => {
       setLoading(false);
     }
   };
+
+  const handleAddToCart = async (e, id)=>{
+    await addToCart(e, id);
+     fetchAddToCartCount;
+  }
 
   useEffect(() => {
     fetchData();
@@ -95,10 +102,7 @@ const CategoryWishProductDisplay = ({ category, heading }) => {
                       </span>
                     </div>
                     <button 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        addToCart(e, product?._id);
-                      }}
+                      onClick={(e)=>{addToCart(e,product?._id)}}
                       className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 active:scale-95"
                     >
                       Add to Cart

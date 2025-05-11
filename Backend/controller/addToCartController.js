@@ -3,19 +3,18 @@ import { AddToCart } from "../models/addToCartModel.js";
 export const addToCart = async (req, res) => {
   try {
     const { productId } = req.body;
-    console.log("productId: ", productId);
+   
     if (!productId) {
       throw new Error("Product id not found");
     }
     const userId = req.userId;
-    console.log("userId: ",userId)
+    
     if (!userId) {
       throw new Error("User not exist");
     }
 
     const existingProduct = await AddToCart.findOne({productId});
 
-    console.log('existingProduct: ', existingProduct)
 
     if (existingProduct) {
       throw new Error("product allready exist in addToCart");
@@ -26,7 +25,7 @@ export const addToCart = async (req, res) => {
       quantity: 1,
       user: userId,
     });
-    console.log('Product: ', product);
+    
     const saveProduct = await product.save();
 
     res.status(200).json({
@@ -43,3 +42,34 @@ export const addToCart = async (req, res) => {
     });
   }
 };
+
+export const countAddToCartProduct = async ( req, res)=>{
+  try {
+    const userId = req.userId;
+    
+    if(!userId){
+      throw new Error('Authentication required');
+    }
+
+    const count = await AddToCart.countDocuments({
+      user: userId
+    })
+    console.log('count: ', count);
+
+    console.log(count);
+
+    res.status(201).json({
+      data: count,
+      message: 'count fetch successfull',
+      success: true,
+      error: false,
+    })
+    
+  } catch (error) {
+    res.status(400).json({
+      message: error?.message || error,
+      sucess: false,
+      error: true
+    })
+  }
+}

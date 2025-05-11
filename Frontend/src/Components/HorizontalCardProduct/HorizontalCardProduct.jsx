@@ -1,10 +1,12 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import fetchCategoryWiseProduct from "../../Helper/fetchCategoryWiseProduct";
 import displayCurrency from "../../Helper/displayCurrency";
 import { Link } from "react-router-dom";
 import addToCart from "../../Helper/addToCart";
+import Context from "../../Context";
 
 const HorizontalCardProduct = ({ category, heading }) => {
+  const {fetchAddToCartCount} = useContext(Context);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,11 +27,17 @@ const HorizontalCardProduct = ({ category, heading }) => {
     }
   };
 
+
   const scroll = (scrollOffset) => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollLeft += scrollOffset;
     }
   };
+
+  const handleAddToCart = async (e, id)=>{
+    await addToCart(e, id);
+     fetchAddToCartCount;
+  }
 
   useEffect(() => {
     fetchData();
