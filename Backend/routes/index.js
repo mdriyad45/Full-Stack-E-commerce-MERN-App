@@ -15,6 +15,7 @@ const {
   getCategoryWiseProduct,
 } = require("../controller/productController/getCategoryWiseProduct");
 const { getProductDetails } = require("../controller/productController/getProductDetails");
+const { addToCart } = require("../controller/addToCartController");
 
 const router = require("express").Router();
 
@@ -37,4 +38,8 @@ router.get("/get-CategoryProductOne", getCategoryProductOne);
 router.post("/category-product", getCategoryWiseProduct);
 router.get('/product-details/:_id',getProductDetails);
 
+//Add to Cart
+
+router.post('/add-to-cart',authToken,addToCart);
 module.exports = router;
+  
