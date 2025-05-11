@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SummaryApi from "../common";
-import { FaStar } from "react-icons/fa";
-import { FaStarHalf } from "react-icons/fa";
+import { FaStar, FaStarHalf } from "react-icons/fa";
 import displayCurrency from "../Helper/displayCurrency";
-import HorizontalCardProduct from "../Components/HorizontalCardProduct/HorizontalCardProduct";
+import CategoryWishProductDisplay from "../Components/CategoryWishProductDisplay/CategoryWishProductDisplay";
 
 const ProductDetails = () => {
   const [data, setData] = useState({
@@ -20,10 +19,7 @@ const ProductDetails = () => {
   const params = useParams();
   const [loading, setLoading] = useState(false);
   const [activeImage, setActiveImage] = useState("");
-  const [zoomImageCoordinate, setZoomImageCoordinate] = useState({
-    x: 0,
-    y: 0
-  })
+  const [zoomImageCoordinate, setZoomImageCoordinate] = useState({ x: 0, y: 0 });
   const [zoomImage, setZoomImage] = useState(false);
 
   const productImageListLoading = new Array(4).fill(null);
@@ -31,168 +27,143 @@ const ProductDetails = () => {
   const fetchProductDetails = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        SummaryApi.productDetails.url.concat("/" + params.id)
-      );
+      const response = await fetch(SummaryApi.productDetails.url + "/" + params.id);
       const responseData = await response.json();
       setData(responseData.data);
-      setActiveImage(data?.productImage[0]);
-      console.log(responseData.data);
     } catch (error) {
       console.log("fetch failed product details");
     } finally {
       setLoading(false);
     }
   };
+
   const handleMouseEnter = (imageUrl) => {
     setActiveImage(imageUrl);
   };
 
-  const handleZoomImage = useCallback((e)=>{
+  const handleZoomImage = useCallback((e) => {
+    if (!e.target) return;
+  
+    const { left, top, width, height } = e.target.getBoundingClientRect();
+    const x = ((e.clientX - left) / width).toFixed(2);
+    const y = ((e.clientY - top) / height).toFixed(2);
+  
+    setZoomImageCoordinate({ x, y });
     setZoomImage(true);
-    const {left, top, width, height} = e.target.getBoundingClientRect();
-    console.log("coordinate", left, top, width, height)
+  }, []);
 
-    const x = (e.clientX - left) / width
-    const y = (e.clientY - top) / height
-
-    setZoomImageCoordinate({
-      x,
-      y
-    })
-    
-  },[zoomImageCoordinate]);
-
-  const handleLeaveImageZoom = ()=>{
+  const handleLeaveImageZoom = () => {
     setZoomImage(false);
-  }
+  };
 
   useEffect(() => {
     fetchProductDetails();
   }, []);
 
+  useEffect(() => {
+    if (data?.productImage?.length > 0) {
+      setActiveImage(data.productImage[0]);
+    }
+  }, [data]);
+
   return (
-    <div className="container mx-auto p-4">
-      <div className="min-h-[200px] flex flex-col lg:flex-row gap-4">
-        {/**product Image */}
-        <div className="h-96 flex flex-col lg:flex-row-reverse gap-4">
-          <div className="h-[300px] w-[300px] lg:w-96 bg-slate-400 relative">
+    <div className="container mx-auto px-4 py-6">
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Product Image and Thumbnails */}
+        <div className="flex flex-col lg:flex-row-reverse gap-4">
+          {/* Active Image with Zoom */}
+          <div className="relative w-full max-w-md h-80 sm:h-96 bg-gray-100 border rounded">
             <img
               src={activeImage}
               onMouseMove={handleZoomImage}
               onMouseLeave={handleLeaveImageZoom}
-              className="h-full w-full py-3 object-scale-down mix-blend-multiply"
+              className="h-full w-full object-scale-down p-3 mix-blend-multiply"
+              alt="Product"
             />
-            {/**product zomm */}
-            {
-              zoomImage && (
-                <div className="hidden lg:block absolute overflow-hidden min-h-[400px] bg-slate-200 p-1 -right-[400px] top-0">
-              <div className="w-full h-full min-h-[400px] min-w-[400px] bg-slate-200 mix-blend-multiply scale-150"
-              style={{
-                backgroundImage: `url(${activeImage})`,
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition : `${zoomImageCoordinate.x * 100}% ${zoomImageCoordinate.y * 100}%`
-              }}>
-                
-              </div>
-            </div>
-              )
-            }
+            {zoomImage && (
+  <div className="hidden lg:block absolute top-0 left-full ml-4 w-[400px] h-[400px] overflow-hidden border shadow-lg rounded">
+    <div
+      className="w-full h-full bg-no-repeat bg-cover transition-all duration-150"
+      style={{
+        backgroundImage: `url(${activeImage})`,
+        backgroundSize: "200%",
+        backgroundPosition: `${zoomImageCoordinate.x * 100}% ${zoomImageCoordinate.y * 100}%`,
+      }}
+    />
+  </div>
+)}
           </div>
-          <div className="h-full">
-            {loading ? (
-              <div className="flex gap-2 md:flex-col overflow-scroll scrollbar-none h-full animate-pulse">
-                {productImageListLoading.map((el, index) => {
-                  return (
-                    <div key={index} className="h-20 w-20 bg-slate-400 rounded">
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="flex gap-2 lg:flex-col overflow-scroll scrollbar-none h-full">
-                {data?.productImage?.map((imageUrl, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="h-20 w-20 bg-slate-400 rounded p-1"
-                    >
-                      <img
-                        src={imageUrl}
-                        onMouseEnter={() => {
-                          handleMouseEnter(imageUrl);
-                        }}
-                        onClick={() => {
-                          handleMouseEnter(imageUrl);
-                        }}
-                        className="w-full h-full object-scale-down mix-blend-multiply cursor-pointer"
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+
+          {/* Thumbnails */}
+          <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-y-auto">
+            {loading
+              ? productImageListLoading.map((_, index) => (
+                  <div key={index} className="w-20 h-20 bg-gray-300 animate-pulse rounded" />
+                ))
+              : data.productImage?.map((img, index) => (
+                  <div
+                  
+                    key={index}
+                    className="w-20 h-20 p-1 bg-white border rounded cursor-pointer"
+                    onMouseEnter={() => handleMouseEnter(img)}
+                    onClick={() => handleMouseEnter(img)}
+                  >
+                    <img src={img} alt={`Thumb-${index}`} className="w-full h-full object-scale-down mix-blend-multiply" />
+                  </div>
+                ))}
           </div>
         </div>
-        {/**product details */}
-        {loading ? (
-          
-            <div className="w-full grid gap-1 ">
-              <p className="w-full bg-slate-200 h-6 lg:h-8 rounded-full inline-block animation-pulse"></p>
-              <h2 className="w-full text-2xl lg:text-4xl lg:h-8 rounded-lg font-meduim h-6 bg-slate-300 animate-pulse"></h2>
-              <p className=" w-full capitalize text-slate-300 rounded-lg lg:h-8 bg-slate-300 min-w-[100px] animate-pulse h-6" ></p>
-              <div className="w-full text-red-600 bg-slate-300 rounded-lg h-6 lg:h-8 animate-pulse flex items-center gap-1">
-                
-              </div>
-              <div className="flex items-center gap-2 w-full bg-slate-300 rounded-lg lg:h-8 text-2xl lg:text-3xl font-medium my-1 h-6 animate-pulse">
-                <p className="w-full text-red-600 bg-slate-300"></p>
-                <p className="w-fulltext-slate-400 line-through bg-slate-300"></p>
+
+        {/* Product Details */}
+        <div className="flex-1 space-y-4">
+          {loading ? (
+            <div className="space-y-4 animate-pulse">
+              <div className="h-6 bg-gray-300 rounded w-1/3" />
+              <div className="h-8 bg-gray-300 rounded w-1/2" />
+              <div className="h-6 bg-gray-300 rounded w-1/4" />
+              <div className="h-6 bg-gray-300 rounded w-1/3" />
+              <div className="h-8 bg-gray-300 rounded w-1/2" />
+              <div className="h-24 bg-gray-200 rounded" />
+            </div>
+          ) : (
+            <>
+              <p className="text-sm text-gray-600 uppercase">{data?.brandName}</p>
+              <h2 className="text-2xl font-semibold">{data?.productName}</h2>
+              <p className="text-gray-500 capitalize">{data?.category}</p>
+
+              <div className="flex items-center gap-1 text-yellow-500 text-lg">
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStarHalf />
               </div>
 
-              <div className="flex items-center gap-3 my-2 w-full">
-                <button className="h-6 lg:h-8 w-full bg-slate-300 rounded-lg  animate-pulse"></button>
-                <button className="h-6 lg:h-8 w-full bg-slate-300 rounded-lg  animate-pulse"></button>
+              <div className="flex items-center gap-3 text-xl font-semibold">
+                <span className="text-red-600">{displayCurrency(data.sellingPrice)}</span>
+                <span className="line-through text-gray-500 text-base">{displayCurrency(data.price)}</span>
               </div>
-              <div className="w-full">
-                <p className="text-slate-600 font-medium w-full my-1 h-6 lg:h-8 bg-slate-300 rounded-lg  animate-pulse"></p>
-                <p className="bg-slate-300 rounded-lg  animate-pulse h-10 lg:h-12 w-full"></p>
-              </div>
-            </div>
-          
-        ) : (
-          <div>
-            <p>{data?.brandName}</p>
-            <h2>{data?.productName}</h2>
-            <p>{data?.category}</p>
-            <div>
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStarHalf />
-            </div>
-            <div>
-              <p>{displayCurrency(data.sellingPrice)}</p>
-              <p>{displayCurrency(data.price)}</p>
-            </div>
 
-            <div>
-              <button>Buy</button>
-              <button>Add to cart</button>
-            </div>
-            <div>
-              <p>Description:</p>
-              <p>{data?.description}</p>
-            </div>
-          </div>
-        )}
+              <div className="flex gap-4 mt-4">
+                <button className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">Buy Now</button>
+                <button className="px-4 py-2 border border-red-600 text-red-600 rounded hover:bg-red-100 transition">Add to Cart</button>
+              </div>
+
+              <div>
+                <p className="font-medium text-gray-700 mt-4">Description:</p>
+                <p className="text-gray-600">{data?.description}</p>
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
-      {
-        data.category && (
-          <HorizontalCardProduct category={data.category} heading={`Recommended Product`}></HorizontalCardProduct>
-        )
-      }
+      {/* Recommended Products */}
+      {data.category && !loading && (
+        <div className="mt-12">
+          <CategoryWishProductDisplay category={data.category} heading="Recommended Products" />
+        </div>
+      )}
     </div>
   );
 };

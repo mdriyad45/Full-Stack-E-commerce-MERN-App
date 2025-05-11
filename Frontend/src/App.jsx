@@ -9,6 +9,8 @@ import SummaryApi from "./common";
 import Context from "./Context";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "./Store/userSlice";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 function App() {
@@ -28,6 +30,11 @@ function App() {
 
   useEffect(() => {
     fetchUserDetails();
+    //for AOS fade animation
+    AOS.init({
+      duration: 1500, // animation duration
+      repeat: true,     // whether animation should happen only once
+    });
   }, []);
   return (
     <>

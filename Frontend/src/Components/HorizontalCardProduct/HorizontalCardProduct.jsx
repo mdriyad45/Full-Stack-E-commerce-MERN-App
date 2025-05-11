@@ -76,6 +76,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
         >
           {(loading ? loadingList : data).map((product, index) => (
             <Link to={'product/'+product?._id}
+            data-aos="zoom-in-up"
               key={product?._id || index}
               className="flex-shrink-0 w-[280px] md:w-[320px] bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 group relative"
             >
