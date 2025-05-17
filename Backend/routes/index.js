@@ -14,8 +14,14 @@ const {
 const {
   getCategoryWiseProduct,
 } = require("../controller/productController/getCategoryWiseProduct");
-const { getProductDetails } = require("../controller/productController/getProductDetails");
-const { addToCart, countAddToCartProduct } = require("../controller/addToCartController");
+const {
+  getProductDetails,
+} = require("../controller/productController/getProductDetails");
+const {
+  addToCart,
+  countAddToCartProduct,
+  addToCartViewProduct,
+} = require("../controller/addToCartController");
 
 const router = require("express").Router();
 
@@ -36,11 +42,11 @@ router.get("/get-product", getProduct);
 router.post("/update-product", authToken, updateProduct);
 router.get("/get-CategoryProductOne", getCategoryProductOne);
 router.post("/category-product", getCategoryWiseProduct);
-router.get('/product-details/:_id',getProductDetails);
+router.get("/product-details/:_id", getProductDetails);
 
 //Add to Cart
 
-router.post('/add-to-cart',authToken,addToCart);
-router.get('/count-addToCart-product',authToken, countAddToCartProduct);
+router.post("/add-to-cart", authToken, addToCart);
+router.get("/count-addToCart-product", authToken, countAddToCartProduct);
+router.get("/addToCartViewProduct",authToken, addToCartViewProduct);
 module.exports = router;
-  

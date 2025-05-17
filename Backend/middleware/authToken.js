@@ -7,11 +7,7 @@ const authToken = async (req, res, next) => {
     const token = cookies.token;
 
     if (!token) {
-      return res.status(200).json({
-        message: "Please Login!",
-        error: true,
-        success: false,
-      });
+      throw new Error('Please Login!');
     }
 
     jwt.verify(token, process.env.TOKEN_SECRET_KEY, (error, decoded) => {

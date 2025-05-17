@@ -60,6 +60,10 @@ const SummaryApi = {
   countAddToProduct: {
     url: `${backendDomain}/api/count-addToCart-product`,
     method: 'get'
+  },
+  addToCartViewProduct: {
+    url: `${backendDomain}/api/addToCartViewProduct`,
+    method: 'get'
   }
 }
 

@@ -28,7 +28,7 @@ const CategoryWishProductDisplay = ({ category, heading }) => {
 
   const handleAddToCart = async (e, id)=>{
     await addToCart(e, id);
-     fetchAddToCartCount;
+     fetchAddToCartCount();
   }
 
   useEffect(() => {
@@ -102,7 +102,7 @@ const CategoryWishProductDisplay = ({ category, heading }) => {
                       </span>
                     </div>
                     <button 
-                      onClick={(e)=>{addToCart(e,product?._id)}}
+                      onClick={(e)=>{handleAddToCart(e,product?._id)}}
                       className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 active:scale-95"
                     >
                       Add to Cart

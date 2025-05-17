@@ -5,8 +5,6 @@ const addToCart = async (e, id) => {
   e?.stopPropagation();
   e?.preventDefault();
 
-  console.log(id);
-
   const response = await fetch(SummaryApi.addToCart.url, {
     method: SummaryApi.addToCart.method,
     credentials: "include",
@@ -26,6 +24,8 @@ const addToCart = async (e, id) => {
   if (responseData.error) {
     toast.error(responseData.message);
   }
+
+  return responseData;
 };
 
 export default addToCart;

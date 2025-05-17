@@ -3,18 +3,17 @@ import { AddToCart } from "../models/addToCartModel.js";
 export const addToCart = async (req, res) => {
   try {
     const { productId } = req.body;
-   
+
     if (!productId) {
       throw new Error("Product id not found");
     }
     const userId = req.userId;
-    
+
     if (!userId) {
-      throw new Error("User not exist");
+      throw new Error("Please login!");
     }
 
-    const existingProduct = await AddToCart.findOne({productId});
-
+    const existingProduct = await AddToCart.findOne({ productId });
 
     if (existingProduct) {
       throw new Error("product allready exist in addToCart");
@@ -23,9 +22,9 @@ export const addToCart = async (req, res) => {
     const product = await AddToCart.create({
       productId,
       quantity: 1,
-      user: userId,
+      userId,
     });
-    
+
     const saveProduct = await product.save();
 
     res.status(200).json({
@@ -43,33 +42,62 @@ export const addToCart = async (req, res) => {
   }
 };
 
-export const countAddToCartProduct = async ( req, res)=>{
+export const countAddToCartProduct = async (req, res) => {
   try {
     const userId = req.userId;
-    
-    if(!userId){
-      throw new Error('Authentication required');
+
+    if (!userId) {
+      throw new Error("Authentication required");
     }
 
     const count = await AddToCart.countDocuments({
-      user: userId
-    })
-    console.log('count: ', count);
+       userId,
+    }).populate("productId");
+    console.log("count: ", count);
 
     console.log(count);
 
     res.status(201).json({
       data: count,
-      message: 'count fetch successfull',
+      message: "count fetch successfull",
       success: true,
       error: false,
-    })
-    
+    });
   } catch (error) {
     res.status(400).json({
       message: error?.message || error,
       sucess: false,
-      error: true
-    })
+      error: true,
+    });
   }
-}
+};
+
+export const addToCartViewProduct = async (req, res) => {
+  try {
+    const userId = req.userId;
+    console.log(userId)
+    if (!userId) {
+      throw new Error("Please Login!");
+    }
+
+    const viewProduct = await AddToCart.find({ userId });
+    console.log("viewProduct: ", viewProduct);
+
+    if (!viewProduct) {
+      throw new Error("Not found addToCart product");
+    }
+
+    res.status(200).json({
+      message: "Get addToCart product Successfully",
+      data: viewProduct,
+      success: true,
+      error: false,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error?.message || error,
+      success: false,
+      error: true,
+    });
+  }
+};

@@ -98,11 +98,11 @@ const Header = () => {
               <span>
                 <FaShoppingCart></FaShoppingCart>
               </span>
-              <div className="bg-red-700 flex items-center justify-center rounded-full w-6 h-5 absolute -top-2 -right-2">
+              <Link to={"/cart"} className="bg-red-700 flex items-center justify-center rounded-full w-6 h-5 absolute -top-2 -right-2">
                 <p className="text-sm text-white">
                   {context?.cartProductCount}
                 </p>
-              </div>
+              </Link>
             </div>
           )}
 

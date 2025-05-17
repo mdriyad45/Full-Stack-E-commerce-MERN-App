@@ -63,7 +63,8 @@ function App() {
           <Outlet></Outlet>
         </main>
         <Footer></Footer>
-        <ToastContainer />
+        <ToastContainer 
+        position="top-center"/>
       </Context.Provider>
     </>
   );

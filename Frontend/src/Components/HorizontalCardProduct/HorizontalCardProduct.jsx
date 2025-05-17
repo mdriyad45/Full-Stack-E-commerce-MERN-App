@@ -36,7 +36,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
 
   const handleAddToCart = async (e, id)=>{
     await addToCart(e, id);
-     fetchAddToCartCount;
+     fetchAddToCartCount();
   }
 
   useEffect(() => {
@@ -126,7 +126,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
                       </span>
                     </div>
 
-                    <button onClick={(e)=>{addToCart(e,product?._id)}} className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 active:scale-95">
+                    <button onClick={(e)=>{handleAddToCart(e,product?._id)}} className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 active:scale-95">
                       Add to Cart
                     </button>
                   </div>
