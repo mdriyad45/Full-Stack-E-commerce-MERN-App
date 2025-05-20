@@ -21,10 +21,11 @@ const Cart = () => {
         },
       });
       const responseData = await response.json();
-      console.log(responseData)
+      console.log(responseData.data);
 
       if (responseData.success) {
-        setData(responseData.data || []);
+        setData(responseData.data);
+        console.log("Data: ",data);
       }
     } catch (error) {
       console.error(error.message || error);
@@ -67,8 +68,8 @@ const Cart = () => {
                     {/* Product Image */}
                     <div className="w-full sm:w-32 h-32 flex-shrink-0">
                       <img
-                        src={product.productId?.imageUrl || "default-image.jpg"}
-                        alt={product.productId?.name}
+                        src={product.product?.productImage[0] || "default-image.jpg"}
+                        alt={product.product?.brandName}
                         className="w-full h-full object-contain rounded-lg"
                       />
                     </div>
@@ -77,21 +78,21 @@ const Cart = () => {
                     <div className="w-full flex flex-col justify-between">
                       <div className="flex justify-between items-start">
                         <h2 className="text-lg font-semibold text-gray-800 truncate">
-                          {product.productId?.name}
+                          {product.product?.productName}
                         </h2>
                         <MdDeleteOutline className="text-red-600 text-2xl cursor-pointer hover:text-red-700" />
                       </div>
 
-                      <p className="text-gray-500 text-sm">{product.productId?.category}</p>
+                      <p className="text-gray-500 text-sm">{product.product?.category}</p>
 
                       <div className="mt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
                           <p className="text-lg font-semibold text-gray-800">
-                            ₹{product.productId?.price}
+                            ₹{product.product?.sellingPrice}
                           </p>
-                          {product.productId?.originalPrice && (
+                          {product.product?.price && (
                             <span className="text-gray-400 line-through">
-                              ₹{product.productId.originalPrice}
+                              ₹{product.product?.price}
                             </span>
                           )}
                         </div>
@@ -101,7 +102,7 @@ const Cart = () => {
                             <FiMinus className="text-red-600" />
                           </button>
                           <span className="text-lg font-medium w-8 text-center">
-                            {product.quantity}
+                            {product?.quantity}
                           </span>
                           <button className="w-8 h-8 flex items-center justify-center border-2 border-red-600 rounded-full hover:bg-red-50 transition-colors">
                             <FiPlus className="text-red-600" />

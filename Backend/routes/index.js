@@ -46,7 +46,7 @@ router.get("/product-details/:_id", getProductDetails);
 
 //Add to Cart
 
-router.post("/add-to-cart", authToken, addToCart);
-router.get("/count-addToCart-product", authToken, countAddToCartProduct);
+router.post("/add-to-cart",authToken, addToCart);
+router.get("/count-addToCart-product",authToken, countAddToCartProduct);
 router.get("/addToCartViewProduct",authToken, addToCartViewProduct);
 module.exports = router;

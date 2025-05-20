@@ -13,7 +13,7 @@ export const getCategoryProductOne = async (req, res) => {
     const productByCategory = [];
     for (const category of productCatagory) {
       const product = await productModel.findOne({ category });
-      console.log(product);
+      
 
       if (product) {
         productByCategory.push(product);

@@ -34,7 +34,7 @@ function App() {
       credentials: "include",
     });
     const dataApi = await dataResponse.json();
-    console.log(dataApi.data);
+
     setCartProductCount(dataApi?.data);
   };
 
@@ -63,8 +63,7 @@ function App() {
           <Outlet></Outlet>
         </main>
         <Footer></Footer>
-        <ToastContainer 
-        position="top-center"/>
+        <ToastContainer position="top-center" />
       </Context.Provider>
     </>
   );

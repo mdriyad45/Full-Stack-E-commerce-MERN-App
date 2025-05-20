@@ -51,11 +51,8 @@ export const countAddToCartProduct = async (req, res) => {
     }
 
     const count = await AddToCart.countDocuments({
-       userId,
+      userId,
     }).populate("productId");
-    console.log("count: ", count);
-
-    console.log(count);
 
     res.status(201).json({
       data: count,
@@ -75,21 +72,46 @@ export const countAddToCartProduct = async (req, res) => {
 export const addToCartViewProduct = async (req, res) => {
   try {
     const userId = req.userId;
-    console.log(userId)
+
     if (!userId) {
       throw new Error("Please Login!");
     }
 
     const viewProduct = await AddToCart.find({ userId });
-    console.log("viewProduct: ", viewProduct);
+    
 
     if (!viewProduct) {
       throw new Error("Not found addToCart product");
+      va;
     }
+    const cartWithProducts = await AddToCart.aggregate([
+      
+      {
+        $lookup: {
+          from: "products",
+          localField: "productId",
+          foreignField: "_id",
+          as: "product",
+        },
+      },
+      {
+        $unwind: {
+          path: "$product",
+        },
+      },
+    ]);
+
+    
+
+    // if (!cartWithProducts.length) {
+    //   throw new Error("No products found in cart.");
+    // }
+
+    console.log(cartWithProducts)
 
     res.status(200).json({
       message: "Get addToCart product Successfully",
-      data: viewProduct,
+      data: cartWithProducts,
       success: true,
       error: false,
     });

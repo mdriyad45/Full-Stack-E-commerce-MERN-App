@@ -13,7 +13,7 @@ export const getProductDetails = async (req, res) => {
       throw new Error("Invalid product Id");
     }
 
-    console.log(product);
+    
     res.status(200).json({
       message: "get product details sucessfully",
       data: product,
