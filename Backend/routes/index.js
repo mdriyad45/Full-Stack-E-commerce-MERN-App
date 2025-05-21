@@ -21,6 +21,8 @@ const {
   addToCart,
   countAddToCartProduct,
   addToCartViewProduct,
+  updateCartProduct,
+  deleteAddToCartProduct,
 } = require("../controller/addToCartController");
 
 const router = require("express").Router();
@@ -46,7 +48,9 @@ router.get("/product-details/:_id", getProductDetails);
 
 //Add to Cart
 
-router.post("/add-to-cart",authToken, addToCart);
-router.get("/count-addToCart-product",authToken, countAddToCartProduct);
-router.get("/addToCartViewProduct",authToken, addToCartViewProduct);
+router.post("/add-to-cart", authToken, addToCart);
+router.get("/count-addToCart-product", authToken, countAddToCartProduct);
+router.get("/addToCartViewProduct", authToken, addToCartViewProduct);
+router.post("/updateAddToCartQuantity", authToken, updateCartProduct);
+router.post("/deleteAddToCartProduct", authToken, deleteAddToCartProduct);
 module.exports = router;

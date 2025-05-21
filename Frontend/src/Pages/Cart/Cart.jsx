@@ -21,11 +21,9 @@ const Cart = () => {
         },
       });
       const responseData = await response.json();
-      console.log(responseData.data);
 
       if (responseData.success) {
         setData(responseData.data);
-        console.log("Data: ",data);
       }
     } catch (error) {
       console.error(error.message || error);
@@ -34,8 +32,69 @@ const Cart = () => {
     }
   };
 
+  const updateQuantity = async (id, newQuantity) => {
+    try {
+      const response = await fetch(SummaryApi.updateCartProduct.url, {
+        method: SummaryApi.updateCartProduct.method,
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          quantity: newQuantity,
+          productId: id,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
+      }
+
+      const responseData = await response.json();
+
+      if (!responseData.success) {
+        throw new Error(responseData.message || 'Failed to update quantity');
+      }
+
+      fetchData(); // Refresh cart data after successful update
+    } catch (error) {
+      console.error("Quantity update error:", error);
+      // Add user notification here (e.g., toast message)
+    }
+  };
+
+  const deleteCartProduct = async (id)=>{
+    try {
+      const response = await fetch(SummaryApi.deleteAddToCartProduct.url,{
+        method: SummaryApi.deleteAddToCartProduct.method,
+        credentials: 'include',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          _id: id,
+        })
+      });
+      const responseData = await response.json();
+  
+      if(responseData.success){
+        fetchData();
+        context.fetchAddToCartCount();
+      }
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+  
+  const handleLoading = async () =>{
+    await fetchData();
+  }
+
   useEffect(() => {
-    fetchData();
+    setLoading(true);
+    handleLoading();
+    setLoading(false);
   }, []);
 
   return (
@@ -51,7 +110,10 @@ const Cart = () => {
         <div className="lg:w-3/4 space-y-4">
           {loading
             ? loadingCart.map((_, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md p-4 animate-pulse">
+                <div
+                  key={index}
+                  className="bg-white rounded-lg shadow-md p-4 animate-pulse"
+                >
                   <div className="flex gap-4">
                     <div className="w-24 h-24 bg-gray-200 rounded-lg" />
                     <div className="flex-1 space-y-3">
@@ -63,12 +125,18 @@ const Cart = () => {
                 </div>
               ))
             : data.map((product) => (
-                <div key={product._id} className="bg-white rounded-lg shadow-md p-4">
+                <div
+                  key={product._id}
+                  className="bg-white rounded-lg shadow-md p-4"
+                >
                   <div className="flex flex-col sm:flex-row gap-4">
                     {/* Product Image */}
                     <div className="w-full sm:w-32 h-32 flex-shrink-0">
                       <img
-                        src={product.product?.productImage[0] || "default-image.jpg"}
+                        src={
+                          product.product?.productImage[0] ||
+                          "default-image.jpg"
+                        }
                         alt={product.product?.brandName}
                         className="w-full h-full object-contain rounded-lg"
                       />
@@ -80,10 +148,12 @@ const Cart = () => {
                         <h2 className="text-lg font-semibold text-gray-800 truncate">
                           {product.product?.productName}
                         </h2>
-                        <MdDeleteOutline className="text-red-600 text-2xl cursor-pointer hover:text-red-700" />
+                        <MdDeleteOutline onClick={()=>{deleteCartProduct(product._id)}} className="text-red-600 text-2xl cursor-pointer hover:text-red-700" />
                       </div>
 
-                      <p className="text-gray-500 text-sm">{product.product?.category}</p>
+                      <p className="text-gray-500 text-sm">
+                        {product.product?.category}
+                      </p>
 
                       <div className="mt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
@@ -98,13 +168,24 @@ const Cart = () => {
                         </div>
 
                         <div className="flex items-center gap-4">
-                          <button className="w-8 h-8 flex items-center justify-center border-2 border-red-600 rounded-full hover:bg-red-50 transition-colors">
-                            <FiMinus className="text-red-600" />
+                          <button
+                            onClick={() => updateQuantity(product._id, product.quantity - 1)}
+                            disabled={product.quantity === 1}
+                            className={`w-8 h-8 flex items-center justify-center border-2 rounded-full transition-colors ${
+                              product.quantity === 1
+                                ? 'border-gray-300 cursor-not-allowed'
+                                : 'border-red-600 hover:bg-red-50'
+                            }`}
+                          >
+                            <FiMinus className={`${product.quantity === 1 ? 'text-gray-300' : 'text-red-600'}`} />
                           </button>
                           <span className="text-lg font-medium w-8 text-center">
-                            {product?.quantity}
+                            {product.quantity}
                           </span>
-                          <button className="w-8 h-8 flex items-center justify-center border-2 border-red-600 rounded-full hover:bg-red-50 transition-colors">
+                          <button
+                            onClick={() => updateQuantity(product._id, product.quantity + 1)}
+                            className="w-8 h-8 flex items-center justify-center border-2 border-red-600 rounded-full hover:bg-red-50 transition-colors"
+                          >
                             <FiPlus className="text-red-600" />
                           </button>
                         </div>
@@ -120,12 +201,19 @@ const Cart = () => {
           <div className="lg:w-1/4">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-8">
               <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
-              
+
               <div className="space-y-4">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal ({data.length} items)</span>
+                  <span className="text-gray-600">
+                    Subtotal ({data.length} items)
+                  </span>
                   <span className="font-medium">
-                    ₹{data.reduce((sum, item) => sum + (item.productId.price * item.quantity), 0)}
+                    ₹
+                    {data.reduce(
+                      (sum, item) =>
+                        sum + item.product?.sellingPrice * item.quantity,
+                      0
+                    )}
                   </span>
                 </div>
 
@@ -139,7 +227,12 @@ const Cart = () => {
                 <div className="flex justify-between text-lg font-semibold">
                   <span>Total</span>
                   <span>
-                    ₹{data.reduce((sum, item) => sum + (item.productId.price * item.quantity), 0)}
+                    ₹
+                    {data.reduce(
+                      (sum, item) =>
+                        sum + item.product?.sellingPrice * item.quantity,
+                      0
+                    )}
                   </span>
                 </div>
               </div>
