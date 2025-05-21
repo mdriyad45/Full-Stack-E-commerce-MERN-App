@@ -81,7 +81,6 @@ export const addToCartViewProduct = async (req, res) => {
 
     if (!viewProduct) {
       throw new Error("Not found addToCart product");
-      va;
     }
     const cartWithProducts = await AddToCart.aggregate([
       {
@@ -98,10 +97,6 @@ export const addToCartViewProduct = async (req, res) => {
         },
       },
     ]);
-
-    if (!cartWithProducts.length) {
-      throw new Error("No products found in cart.");
-    }
 
     res.status(200).json({
       message: "Get addToCart product Successfully",
@@ -179,32 +174,31 @@ export const updateCartProduct = async (req, res) => {
   }
 };
 
-export const deleteAddToCartProduct = async (req, res)=>{
+export const deleteAddToCartProduct = async (req, res) => {
   try {
     const productId = req.body;
-    if(!productId){
-      throw new Error('productId not found!');
+    if (!productId) {
+      throw new Error("productId not found!");
     }
 
-    const deleteProduct = await AddToCart.findOneAndDelete({_id: productId});
+    const deleteProduct = await AddToCart.findOneAndDelete({ _id: productId });
 
-    if(!deleteProduct){
-      throw new Error('product not found');
+    if (!deleteProduct) {
+      throw new Error("product not found");
     }
-
+    console.log(deleteProduct);
     res.status(200).json({
-      message: 'Cart product delete successfully!',
+      message: "Cart product delete successfully!",
       data: deleteProduct,
       success: true,
       error: false,
-    })
-    
+    });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({
       message: error?.message || error,
       success: false,
       error: true,
-    })
+    });
   }
-}
+};

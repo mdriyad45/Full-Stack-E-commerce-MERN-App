@@ -3,6 +3,7 @@ import { FiPlus, FiMinus } from "react-icons/fi";
 import { useContext, useEffect, useState } from "react";
 import Context from "../../Context";
 import SummaryApi from "../../common";
+import displayCurrency from "../../Helper/displayCurrency"
 
 const Cart = () => {
   const context = useContext(Context);
@@ -20,7 +21,9 @@ const Cart = () => {
           "content-type": "application/json",
         },
       });
+      
       const responseData = await response.json();
+      console.log(responseData);
 
       if (responseData.success) {
         setData(responseData.data);
@@ -97,6 +100,7 @@ const Cart = () => {
     setLoading(false);
   }, []);
 
+
   return (
     <div className="container mx-auto px-4 py-8">
       {data.length === 0 && !loading && (
@@ -156,13 +160,15 @@ const Cart = () => {
                       </p>
 
                       <div className="mt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div className="flex items-center gap-4">
+                        <div className="flex justify-between w-full items-center gap-4">
                           <p className="text-lg font-semibold text-gray-800">
-                            ₹{product.product?.sellingPrice}
+                             {
+                              displayCurrency(product.product?.sellingPrice)
+                             }
                           </p>
                           {product.product?.price && (
-                            <span className="text-gray-400 line-through">
-                              ₹{product.product?.price}
+                            <span className="text-gray-400 pr-4">
+                              {displayCurrency(product.product?.sellingPrice * product?.quantity)}
                             </span>
                           )}
                         </div>
