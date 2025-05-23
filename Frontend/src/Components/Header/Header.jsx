@@ -18,7 +18,9 @@ const Header = () => {
   const [menuDisplay, setMenuDisplay] = useState(false);
   const navigate = useNavigate();
   const searchInput = useLocation();
-  const [search, setSearch] = useState(searchInput?.search?.split("=")[1]);
+  const urlSearch = new URLSearchParams(searchInput?.search);
+  const searchQuery = urlSearch.getAll('')
+  const [search, setSearch] = useState(searchQuery);
 
   const handleLogout = async () => {
     console.log("logout successfull");

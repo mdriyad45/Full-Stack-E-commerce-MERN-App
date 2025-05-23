@@ -27,6 +27,7 @@ const {
 const {
   searchProduct,
 } = require("../controller/productController/searchProduct");
+const { filterProducts } = require("../controller/productController/filterProductController");
 
 const router = require("express").Router();
 
@@ -49,6 +50,8 @@ router.get("/get-CategoryProductOne", getCategoryProductOne);
 router.post("/category-product", getCategoryWiseProduct);
 router.get("/product-details/:_id", getProductDetails);
 router.get("/search", searchProduct);
+router.post("/filter-Product", filterProducts);
+
 
 //Add to Cart
 

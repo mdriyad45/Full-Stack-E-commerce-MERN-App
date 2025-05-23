@@ -8,11 +8,17 @@ const ProductList = () => {
 
   const categoryLoading = new Array(13).fill(null);
   const fetchCategoryProduct = async () => {
-    setLoading(true);
-    const response = await fetch(SummaryApi.getCategoryProduct.url);
-    const dataResponse = await response.json();
-    setLoading(false);
-    setCategoryProduct(dataResponse.data);
+    try {
+      setLoading(true);
+      const response = await fetch(SummaryApi.getCategoryProduct.url);
+      const dataResponse = await response.json();
+
+      setCategoryProduct(dataResponse.data);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
   useEffect(() => {
     fetchCategoryProduct();
@@ -32,7 +38,7 @@ const ProductList = () => {
           : categoryProduct.map((product, index) => {
               return (
                 <Link
-                  to={"/product-category?category=" + product?.category}
+                  to={"/product-category/?category=" + product?.category}
                   className="cursor-pointer"
                   key={index}
                 >

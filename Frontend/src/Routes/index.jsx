@@ -7,10 +7,11 @@ import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
 import AdminPanel from "../Pages/AdminPanel/AdminPanel";
 import AllUsers from "../Pages/AllUsers/AllUsers";
 import AllProducs from "../Pages/AllProducts/AllProducs";
-import CategoryProduct from "../Pages/CategoryProduct";
+
 import ProductDetails from "../Pages/ProductDetails";
 import Cart from "../Pages/Cart/Cart";
 import SearchProduct from "../Pages/SearchProduct/SearchProduct";
+import CategoryProduct from "../Pages/CategoryProduct/CategoryProduct";
 
 
 const router = createBrowserRouter([
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
                 element: <SignUp></SignUp>
             },
             {
-                path: "product-category/:categoryName",
+                path: "product-category",
                 element: <CategoryProduct></CategoryProduct>
             },
             {
