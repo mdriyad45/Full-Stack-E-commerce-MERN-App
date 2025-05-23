@@ -13,19 +13,18 @@ const CategoryProduct = () => {
   const [showFilters, setShowFilters] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const [sortBy, setSortBy]= useState("")
+  const [sortBy, setSortBy] = useState("");
 
   const urlSearch = new URLSearchParams(location.search);
   const urlCategoryListInArray = urlSearch.getAll("category");
-
-  console.log("urlCategoryListInArray", urlCategoryListInArray);
 
   const urlCategoryListObject = {};
   urlCategoryListInArray.forEach((el) => {
     urlCategoryListObject[el] = true;
   });
+
   const [selectCategory, setSelectCategory] = useState(urlCategoryListObject);
-  console.log("urlCategoryListInArray", urlCategoryListObject);
+
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -40,8 +39,16 @@ const CategoryProduct = () => {
         }),
       });
       const responseData = await response.json();
-      console.log(responseData.data);
-      setData(responseData?.data || []);
+      let fetchedData = responseData?.data || [];
+
+      // Apply sorting if already selected
+      if (sortBy === "asc") {
+        fetchedData.sort((a, b) => a.sellingPrice - b.sellingPrice);
+      } else if (sortBy === "dsc") {
+        fetchedData.sort((a, b) => b.sellingPrice - a.sellingPrice);
+      }
+
+      setData(fetchedData);
     } catch (error) {
       console.log(error.message);
     } finally {
@@ -57,36 +64,34 @@ const CategoryProduct = () => {
     }));
   };
 
-  const handleOnchangeSortBy = (e)=>{
-    const {value} = e.target;
-
+  const handleOnchangeSortBy = (e) => {
+    const { value } = e.target;
     setSortBy(value);
-    if(value === 'asc'){
-        setData(prev => prev.sort((a,b)=> a.sellingPrice - b.sellingPrice))
-    }
-    if(value === 'dsc'){
-        setData(prev => prev.sort((a,b)=> b.sellingPrice - a.sellingPrice))
-    }
-  }
 
-  useEffect(()=>{
-    
-  },[sortBy])
+    // Apply sorting without mutating original array
+    setData((prev) => {
+      const sorted = [...prev];
+      if (value === "asc") {
+        sorted.sort((a, b) => a.sellingPrice - b.sellingPrice);
+      } else if (value === "dsc") {
+        sorted.sort((a, b) => b.sellingPrice - a.sellingPrice);
+      }
+      return sorted;
+    });
+  };
 
   useEffect(() => {
     const arrayOfCategory = Object.keys(selectCategory).filter(
       (key) => selectCategory[key]
     );
     setFilterCategoryList(arrayOfCategory);
-//formate for url change when change on the checkbox
-    const urlFormate = arrayOfCategory.map(((el, index) => {
-        if((arrayOfCategory.length - 1) === index ){
-            return `category=${el}`
-        }
-        return `category=${el}&&`
-    }))
 
-    navigate('/product-category?'+urlFormate.join(''))
+    // Format URL for selected filters
+    const urlFormat = arrayOfCategory
+      .map((el) => `category=${el}`)
+      .join("&");
+
+    navigate("/product-category?" + urlFormat);
   }, [selectCategory]);
 
   useEffect(() => {
@@ -98,17 +103,17 @@ const CategoryProduct = () => {
       {/* Mobile Filter Toggle Button */}
       <div className="lg:hidden mb-4">
         <button
-          className="bg-yellow-400 px-4 py-2 rounded font-semibold text-sm"
+          className="bg-white px-4 py-2 rounded font-semibold text-sm"
           onClick={() => setShowFilters(!showFilters)}
         >
           {showFilters ? "Hide Filters" : "Show Filters"}
         </button>
       </div>
 
-      <div className="grid lg:grid-cols-[200px,1fr] gap-4">
+      <div className="flex lg:flex-row flex-col gap-4 relative">
         {/* Left Sidebar */}
         <div
-          className={`bg-yellow-100 p-4 rounded-lg min-h-[200px] lg:min-h-[calc(100vh-100px)] ${
+          className={`bg-yellow-100 p-4 rounded-lg w-full lg:w-[200px] h-auto lg:h-[calc(100vh-100px)] overflow-y-auto sticky top-[80px] ${
             showFilters ? "block" : "hidden lg:block"
           }`}
         >
@@ -119,11 +124,25 @@ const CategoryProduct = () => {
             </h3>
             <form className="text-sm flex flex-col gap-2 py-2">
               <div className="flex items-center gap-2">
-                <input type="radio" name="sortBy" checked={sortBy === 'asc'} value={"asc"} onChange={handleOnchangeSortBy} id="lowToHigh" />
+                <input
+                  type="radio"
+                  name="sortBy"
+                  checked={sortBy === "asc"}
+                  value="asc"
+                  onChange={handleOnchangeSortBy}
+                  id="lowToHigh"
+                />
                 <label htmlFor="lowToHigh">Price - Low to High</label>
               </div>
               <div className="flex items-center gap-2">
-                <input type="radio" name="sortBy" checked={sortBy === 'dsc'} value={"dsc"} onChange={handleOnchangeSortBy} id="highToLow" />
+                <input
+                  type="radio"
+                  name="sortBy"
+                  checked={sortBy === "dsc"}
+                  value="dsc"
+                  onChange={handleOnchangeSortBy}
+                  id="highToLow"
+                />
                 <label htmlFor="highToLow">Price - High to Low</label>
               </div>
             </form>
@@ -153,7 +172,7 @@ const CategoryProduct = () => {
         </div>
 
         {/* Product Display */}
-        <div>
+        <div className="flex-1 overflow-y-auto">
           {!loading && data.length > 0 ? (
             <Cart data={data} loading={loading} />
           ) : (
