@@ -2,7 +2,7 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import Logo from "../Logo/Logo";
 import { GrSearch } from "react-icons/gr";
 import { FaShoppingCart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SummaryApi from "../../common";
 import { toast } from "react-toastify";
@@ -16,6 +16,9 @@ const Header = () => {
   const dispatch = useDispatch();
   const context = useContext(Context);
   const [menuDisplay, setMenuDisplay] = useState(false);
+  const navigate = useNavigate();
+  const searchInput = useLocation();
+  const [search, setSearch] = useState(searchInput?.search?.split("=")[1]);
 
   const handleLogout = async () => {
     console.log("logout successfull");
@@ -25,7 +28,7 @@ const Header = () => {
     });
 
     const data = await fetchData.json();
-    console.log("logout data", data);
+   
 
     if (data.success) {
       toast.success(data.message);
@@ -36,6 +39,18 @@ const Header = () => {
       toast.error(data.message);
     }
   };
+
+  const handleSearch = (e)=>{
+    const {value} = e.target;
+    setSearch(value);
+    if(value){
+      navigate(`/search?q=${value}`);
+    }
+    else{
+      navigate('/search');
+    }
+    console.log(value);
+  }
   
   return (
     <header className="h-16 shadow-md bg-white fixed w-full z-40">
@@ -48,6 +63,8 @@ const Header = () => {
 
         <div className="hidden lg:flex w-full max-w-sm  items-center justify-between border rounded-full focus-within:shadow-md">
           <input
+            onChange={handleSearch}
+            value={search}
             className="w-full outline-none pl-2"
             type="text"
             placeholder="search product here..."

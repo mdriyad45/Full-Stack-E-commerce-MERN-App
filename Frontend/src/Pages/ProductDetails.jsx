@@ -58,7 +58,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     fetchProductDetails();
-  }, []);
+  }, [params]);
 
   useEffect(() => {
     if (data?.productImage?.length > 0) {
@@ -81,7 +81,7 @@ const ProductDetails = () => {
               alt="Product"
             />
             {zoomImage && (
-  <div className="hidden lg:block absolute top-0 left-full ml-4 w-[400px] h-[400px] overflow-hidden border shadow-lg rounded">
+  <div className="hidden lg:block absolute top-0 left-full ml-4 w-[600px] h-[400px] overflow-hidden border shadow-lg rounded">
     <div
       className="w-full h-full bg-no-repeat bg-cover transition-all duration-150"
       style={{

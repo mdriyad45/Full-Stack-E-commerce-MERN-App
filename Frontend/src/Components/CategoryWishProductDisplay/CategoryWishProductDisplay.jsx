@@ -4,6 +4,7 @@ import displayCurrency from "../../Helper/displayCurrency";
 import { Link } from "react-router-dom";
 import addToCart from "../../Helper/addToCart";
 import Context from "../../Context";
+import scrollTop from "../../Helper/scrollTop";
 
 const CategoryWishProductDisplay = ({ category, heading }) => {
   const {fetchAddToCartCount} = useContext(Context);
@@ -35,13 +36,6 @@ const CategoryWishProductDisplay = ({ category, heading }) => {
     fetchData();
   }, [category]);
 
-  if (error) {
-    return (
-      <div className="container mx-auto px-4 my-6 text-center text-red-500">
-        {error}
-      </div>
-    );
-  }
 
   return (
     <div className="container mx-auto px-4 my-6">
@@ -66,7 +60,7 @@ const CategoryWishProductDisplay = ({ category, heading }) => {
               </div>
             ) : (
               <>
-                <Link to={`product/${product?._id}`}  className="block">
+                <Link to={`/product/${product?._id}`}  className="block" onClick={()=> scrollTop}>
                   <div className="h-60 p-4 bg-gray-100 rounded-t-xl relative overflow-hidden">
                     <img
                       src={product.productImage[0]}
