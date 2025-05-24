@@ -6,7 +6,7 @@ import addToCart from "../../Helper/addToCart";
 import Context from "../../Context";
 
 const HorizontalCardProduct = ({ category, heading }) => {
-  const {fetchAddToCartCount} = useContext(Context);
+  const { fetchAddToCartCount } = useContext(Context);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,17 +27,16 @@ const HorizontalCardProduct = ({ category, heading }) => {
     }
   };
 
-
   const scroll = (scrollOffset) => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollLeft += scrollOffset;
     }
   };
 
-  const handleAddToCart = async (e, id)=>{
+  const handleAddToCart = async (e, id) => {
     await addToCart(e, id);
-     fetchAddToCartCount();
-  }
+    fetchAddToCartCount();
+  };
 
   useEffect(() => {
     fetchData();
@@ -62,8 +61,18 @@ const HorizontalCardProduct = ({ category, heading }) => {
           className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-all transform hover:scale-110 -translate-x-1/2 active:scale-95"
           aria-label="Scroll left"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </button>
 
@@ -72,8 +81,18 @@ const HorizontalCardProduct = ({ category, heading }) => {
           className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-all transform hover:scale-110 translate-x-1/2 active:scale-95"
           aria-label="Scroll right"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
           </svg>
         </button>
 
@@ -83,8 +102,9 @@ const HorizontalCardProduct = ({ category, heading }) => {
           className="flex gap-4 overflow-x-auto scroll-smooth pb-4 hide-scrollbar px-2 touch-pan-x"
         >
           {(loading ? loadingList : data).map((product, index) => (
-            <Link to={'product/'+product?._id}
-            data-aos="zoom-in-up"
+            <Link
+              to={"product/" + product?._id}
+              data-aos="zoom-in-up"
               key={product?._id || index}
               className="flex-shrink-0 w-[280px] md:w-[320px] bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 group relative"
             >
@@ -108,7 +128,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
                   </div>
-                  
+
                   <div className="p-4">
                     <h3 className="text-lg font-semibold text-gray-800 truncate mb-1">
                       {product.productName}
@@ -116,7 +136,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
                     <p className="text-sm text-gray-500 capitalize mb-2">
                       {product.category}
                     </p>
-                    
+
                     <div className="flex items-center gap-2 mb-3">
                       <span className="text-lg font-bold text-red-600">
                         {displayCurrency(product.sellingPrice)}
@@ -126,7 +146,12 @@ const HorizontalCardProduct = ({ category, heading }) => {
                       </span>
                     </div>
 
-                    <button onClick={(e)=>{handleAddToCart(e,product?._id)}} className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 active:scale-95">
+                    <button
+                      onClick={(e) => {
+                        handleAddToCart(e, product?._id);
+                      }}
+                      className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 active:scale-95"
+                    >
                       Add to Cart
                     </button>
                   </div>
