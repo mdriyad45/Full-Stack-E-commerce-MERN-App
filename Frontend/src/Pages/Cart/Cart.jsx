@@ -149,7 +149,7 @@ const Cart = () => {
                     {/* Product Details */}
                     <div className="w-full flex flex-col justify-between">
                       <div className="flex justify-between items-start">
-                        <h2 className="text-lg font-semibold text-gray-800 truncate">
+                        <h2 className="text-lg font-semibold text-gray-800 truncate max-w-36 md:max-w-96 lg:max-w-md">
                           {product.product?.productName}
                         </h2>
                         <MdDeleteOutline onClick={()=>{deleteCartProduct(product._id)}} className="text-red-600 text-2xl cursor-pointer hover:text-red-700" />

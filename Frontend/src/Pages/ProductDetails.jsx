@@ -23,7 +23,7 @@ const ProductDetails = () => {
   const [activeImage, setActiveImage] = useState("");
   const [zoomImageCoordinate, setZoomImageCoordinate] = useState({ x: 0, y: 0 });
   const [zoomImage, setZoomImage] = useState(false);
-  const {fetchUserAddToCart} = useContext(Context)
+  const {fetchAddToCartCount} = useContext(Context)
   const navigate = useNavigate();
 
   const productImageListLoading = new Array(4).fill(null);
@@ -72,12 +72,12 @@ const ProductDetails = () => {
 
   const handleAddToCart = async (e,id)=>{
     await addToCart(e,id);
-    fetchUserAddToCart()
+    fetchAddToCartCount()
   }
 
   const handleBuyProduct = async (e,id)=>{
     await addToCart(e,id);
-    fetchUserAddToCart();
+    fetchAddToCartCount();
     navigate('/cart')
   }
 

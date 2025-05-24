@@ -1,12 +1,10 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import productCategory from "../../Helper/ProductCategory";
 import { useEffect, useState } from "react";
 import Cart from "../../Components/Cart";
 import SummaryApi from "../../common";
 
 const CategoryProduct = () => {
-  const params = useParams();
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filterCategoryList, setFilterCategoryList] = useState([]);
@@ -87,9 +85,7 @@ const CategoryProduct = () => {
     setFilterCategoryList(arrayOfCategory);
 
     // Format URL for selected filters
-    const urlFormat = arrayOfCategory
-      .map((el) => `category=${el}`)
-      .join("&");
+    const urlFormat = arrayOfCategory.map((el) => `category=${el}`).join("&");
 
     navigate("/product-category?" + urlFormat);
   }, [selectCategory]);

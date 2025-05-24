@@ -57,8 +57,8 @@ const CategoryWishProductDisplay = ({ category, heading }) => {
                 </div>
               </div>
             ) : (
-              <>
-                <Link
+              <Link to={`/product/${product?._id}`}>
+                <div
                   to={`/product/${product?._id}`}
                   className="block"
                   onClick={() => scrollTop}
@@ -79,17 +79,17 @@ const CategoryWishProductDisplay = ({ category, heading }) => {
                       % OFF
                     </div>
                   </div>
-                </Link>
+                </div>
 
                 <div className="p-4">
-                  <Link to={`product/${product?._id}`}>
+                  <div>
                     <h3 className="text-lg font-semibold text-gray-800 truncate mb-1">
                       {product.productName}
                     </h3>
                     <p className="text-sm text-gray-500 capitalize mb-2">
                       {product.category}
                     </p>
-                  </Link>
+                  </div>
 
                   <div className="flex items-center justify-between">
                     <div className="flex flex-col">
@@ -110,7 +110,7 @@ const CategoryWishProductDisplay = ({ category, heading }) => {
                     </button>
                   </div>
                 </div>
-              </>
+              </Link>
             )}
           </div>
         ))}
