@@ -19,7 +19,7 @@ const Header = () => {
   const navigate = useNavigate();
   const searchInput = useLocation();
   const urlSearch = new URLSearchParams(searchInput?.search);
-  const searchQuery = urlSearch.getAll('')
+  const searchQuery = urlSearch.getAll("");
   const [search, setSearch] = useState(searchQuery);
 
   const handleLogout = async () => {
@@ -30,11 +30,11 @@ const Header = () => {
     });
 
     const data = await fetchData.json();
-   
 
     if (data.success) {
       toast.success(data.message);
       dispatch(setUserDetails(null));
+      navigate("/");
     }
 
     if (data.error) {
@@ -42,18 +42,17 @@ const Header = () => {
     }
   };
 
-  const handleSearch = (e)=>{
-    const {value} = e.target;
+  const handleSearch = (e) => {
+    const { value } = e.target;
     setSearch(value);
-    if(value){
+    if (value) {
       navigate(`/search?q=${value}`);
-    }
-    else{
-      navigate('/search');
+    } else {
+      navigate("/search");
     }
     console.log(value);
-  }
-  
+  };
+
   return (
     <header className="h-16 shadow-md bg-white fixed w-full z-40">
       <div className="h-full container mx-auto flex items-center px-4 justify-between">
@@ -117,7 +116,10 @@ const Header = () => {
               <span>
                 <FaShoppingCart></FaShoppingCart>
               </span>
-              <Link to={"/cart"} className="bg-red-700 flex items-center justify-center rounded-full w-6 h-5 absolute -top-2 -right-2">
+              <Link
+                to={"/cart"}
+                className="bg-red-700 flex items-center justify-center rounded-full w-6 h-5 absolute -top-2 -right-2"
+              >
                 <p className="text-sm text-white">
                   {context?.cartProductCount}
                 </p>

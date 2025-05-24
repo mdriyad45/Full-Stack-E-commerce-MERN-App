@@ -3,7 +3,7 @@ import { FiPlus, FiMinus } from "react-icons/fi";
 import { useContext, useEffect, useState } from "react";
 import Context from "../../Context";
 import SummaryApi from "../../common";
-import displayCurrency from "../../Helper/displayCurrency"
+import displayCurrency from "../../Helper/displayCurrency";
 
 const Cart = () => {
   const context = useContext(Context);
@@ -13,7 +13,6 @@ const Cart = () => {
 
   const fetchData = async () => {
     try {
-      setLoading(true);
       const response = await fetch(SummaryApi.addToCartViewProduct.url, {
         method: SummaryApi.addToCartViewProduct.method,
         credentials: "include",
@@ -21,7 +20,7 @@ const Cart = () => {
           "content-type": "application/json",
         },
       });
-      
+
       const responseData = await response.json();
       console.log(responseData);
 
@@ -30,8 +29,6 @@ const Cart = () => {
       }
     } catch (error) {
       console.error(error.message || error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -51,55 +48,55 @@ const Cart = () => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
+        throw new Error(
+          `HTTP error! Status: ${response.status} - ${errorText}`
+        );
       }
 
       const responseData = await response.json();
 
       if (!responseData.success) {
-        throw new Error(responseData.message || 'Failed to update quantity');
+        throw new Error(responseData.message || "Failed to update quantity");
       }
 
-      fetchData(); // Refresh cart data after successful update
+      fetchData();
     } catch (error) {
       console.error("Quantity update error:", error);
-      // Add user notification here (e.g., toast message)
     }
   };
 
-  const deleteCartProduct = async (id)=>{
+  const deleteCartProduct = async (id) => {
     try {
-      const response = await fetch(SummaryApi.deleteAddToCartProduct.url,{
+      const response = await fetch(SummaryApi.deleteAddToCartProduct.url, {
         method: SummaryApi.deleteAddToCartProduct.method,
-        credentials: 'include',
+        credentials: "include",
         headers: {
-          'content-type': 'application/json'
+          "content-type": "application/json",
         },
         body: JSON.stringify({
           _id: id,
-        })
+        }),
       });
       const responseData = await response.json();
-  
-      if(responseData.success){
+
+      if (responseData.success) {
         fetchData();
         context.fetchAddToCartCount();
       }
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
-  
-  const handleLoading = async () =>{
+  };
+
+  const handleLoading = async () => {
+    setLoading(true);
     await fetchData();
-  }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    setLoading(true);
     handleLoading();
-    setLoading(false);
   }, []);
-
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -152,7 +149,12 @@ const Cart = () => {
                         <h2 className="text-lg font-semibold text-gray-800 truncate max-w-36 md:max-w-96 lg:max-w-md">
                           {product.product?.productName}
                         </h2>
-                        <MdDeleteOutline onClick={()=>{deleteCartProduct(product._id)}} className="text-red-600 text-2xl cursor-pointer hover:text-red-700" />
+                        <MdDeleteOutline
+                          onClick={() => {
+                            deleteCartProduct(product._id);
+                          }}
+                          className="text-red-600 text-2xl cursor-pointer hover:text-red-700"
+                        />
                       </div>
 
                       <p className="text-gray-500 text-sm">
@@ -162,34 +164,45 @@ const Cart = () => {
                       <div className="mt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="flex justify-between w-full items-center gap-4">
                           <p className="text-lg font-semibold text-gray-800">
-                             {
-                              displayCurrency(product.product?.sellingPrice)
-                             }
+                            {displayCurrency(product.product?.sellingPrice)}
                           </p>
                           {product.product?.price && (
                             <span className="text-gray-400 pr-4">
-                              {displayCurrency(product.product?.sellingPrice * product?.quantity)}
+                              {displayCurrency(
+                                product.product?.sellingPrice *
+                                  product?.quantity
+                              )}
                             </span>
                           )}
                         </div>
 
                         <div className="flex items-center gap-4">
                           <button
-                            onClick={() => updateQuantity(product._id, product.quantity - 1)}
+                            onClick={() =>
+                              updateQuantity(product._id, product.quantity - 1)
+                            }
                             disabled={product.quantity === 1}
                             className={`w-8 h-8 flex items-center justify-center border-2 rounded-full transition-colors ${
                               product.quantity === 1
-                                ? 'border-gray-300 cursor-not-allowed'
-                                : 'border-red-600 hover:bg-red-50'
+                                ? "border-gray-300 cursor-not-allowed"
+                                : "border-red-600 hover:bg-red-50"
                             }`}
                           >
-                            <FiMinus className={`${product.quantity === 1 ? 'text-gray-300' : 'text-red-600'}`} />
+                            <FiMinus
+                              className={`${
+                                product.quantity === 1
+                                  ? "text-gray-300"
+                                  : "text-red-600"
+                              }`}
+                            />
                           </button>
                           <span className="text-lg font-medium w-8 text-center">
                             {product.quantity}
                           </span>
                           <button
-                            onClick={() => updateQuantity(product._id, product.quantity + 1)}
+                            onClick={() =>
+                              updateQuantity(product._id, product.quantity + 1)
+                            }
                             className="w-8 h-8 flex items-center justify-center border-2 border-red-600 rounded-full hover:bg-red-50 transition-colors"
                           >
                             <FiPlus className="text-red-600" />
