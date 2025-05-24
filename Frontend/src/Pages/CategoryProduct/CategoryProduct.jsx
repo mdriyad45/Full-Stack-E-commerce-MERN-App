@@ -39,13 +39,6 @@ const CategoryProduct = () => {
       const responseData = await response.json();
       let fetchedData = responseData?.data || [];
 
-      // Apply sorting if already selected
-      if (sortBy === "asc") {
-        fetchedData.sort((a, b) => a.sellingPrice - b.sellingPrice);
-      } else if (sortBy === "dsc") {
-        fetchedData.sort((a, b) => b.sellingPrice - a.sellingPrice);
-      }
-
       setData(fetchedData);
     } catch (error) {
       console.log(error.message);
@@ -109,7 +102,7 @@ const CategoryProduct = () => {
       <div className="flex lg:flex-row flex-col gap-4 relative">
         {/* Left Sidebar */}
         <div
-          className={`bg-yellow-100 p-4 rounded-lg w-full lg:w-[200px] h-auto lg:h-[calc(100vh-100px)] overflow-y-auto sticky top-[80px] ${
+          className={`bg-white p-4 rounded-lg w-full lg:w-[200px] h-auto lg:h-[calc(100vh-100px)] overflow-y-auto sticky top-[80px] ${
             showFilters ? "block" : "hidden lg:block"
           }`}
         >
