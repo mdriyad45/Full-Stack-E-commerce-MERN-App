@@ -15,12 +15,12 @@
     display: none;
 }
 .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
 .hide-scrollbar {
-    scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
   .transition-colors {
     transition: background-color 0.2s ease, color 0.2s ease;
   }

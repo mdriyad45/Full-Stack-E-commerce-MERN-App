@@ -99,7 +99,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
         {/* Scroll container */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-4 overflow-x-auto scroll-smooth pb-4 hide-scrollbar px-2 touch-pan-x"
+          className="flex gap-4 overflow-x-auto scroll-smooth pb-4 scrollbar-hide px-2 touch-pan-x"
         >
           {(loading ? loadingList : data).map((product, index) => (
             <Link
@@ -161,16 +161,6 @@ const HorizontalCardProduct = ({ category, heading }) => {
           ))}
         </div>
       </div>
-
-      <style jsx>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </div>
   );
 };
