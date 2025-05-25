@@ -1,4 +1,4 @@
-const backendDomain = "http://localhost:8000";
+const backendDomain = "https://full-stack-e-commerce-mern-app-inky.vercel.app";
 
 const SummaryApi = {
   signUp: {
