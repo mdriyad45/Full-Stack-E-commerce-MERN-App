@@ -21,6 +21,12 @@ app.use(cors({
 const PORT = process.env.PORT || 3000;
 
 app.use('/api',router);
+app.use('/',(req,res)=>{
+  res.status(200).json({
+    message: "Welcome to the API",
+    status: "success"
+  });
+})
 app.use(cookieParser());
 
 connectDb().then(() => {
