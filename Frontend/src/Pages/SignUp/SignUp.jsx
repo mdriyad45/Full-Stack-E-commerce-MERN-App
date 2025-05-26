@@ -1,5 +1,5 @@
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import loginIcons from "../../assests/signin.gif";
+import {loginIcons} from "../../assests/signin.gif";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import imageToBase64 from "../../Helper/imageToBase64 ";
