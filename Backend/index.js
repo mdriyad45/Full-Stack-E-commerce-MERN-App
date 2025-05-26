@@ -16,7 +16,7 @@ app.use(express.urlencoded({
 
 
 app.use(cors({
-  origin: [process.env.FRONTEND_URL, "*"],
+  origin: [process.env.FRONTEND_URL],
   credentials: true,
 }));
  
@@ -34,6 +34,7 @@ app.use(cookieParser());
 connectDb().then(() => {
   app.listen(PORT, () => {
     console.log("Database connect successfully");
+    console.log(process.env.FRONTEND_URL)
     console.log(`Server is running on port: ${PORT}`);
   });
 });
