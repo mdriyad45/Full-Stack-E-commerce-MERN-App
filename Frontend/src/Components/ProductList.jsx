@@ -25,7 +25,7 @@ const ProductList = () => {
   }, []);
   return (
     <div className="container mx-auto p-4">
-      <div className="flex items-center gap-4 justify-between overflow-scroll hide-scrollbar">
+      <div className="flex items-center gap-4 justify-between overflow-scroll scrollbar-hide">
         {loading
           ? categoryLoading.map((el, index) => {
               return (
@@ -56,15 +56,6 @@ const ProductList = () => {
               );
             })}
       </div>
-      <style jsx>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 Frontend/src/assets/products
+Frontend/dist
 # Logs
 logs
 *.log
