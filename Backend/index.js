@@ -17,7 +17,7 @@ app.use(express.urlencoded({
 
 app.use(cors({
   origin: [process.env.FRONTEND_URL, "https://full-stack-e-commerce-mern-app-inky.vercel.app/api/signin"],
-  credentials: false,
+  credentials: true,
 }));
  
 const PORT = process.env.PORT || 3000;
