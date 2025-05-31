@@ -4,9 +4,8 @@ A modern, responsive e-commerce platform built with the MERN stack (MongoDB, Exp
 
 ![E-Commerce Banner](https://via.placeholder.com/1200x400/EF4444/FFFFFF?text=E-Commerce+MERN+App)
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://your-demo-link.vercel.app)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/yourusername/full-stack-ecommerce-mern)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://kenakatakori.netlify.app/)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/mdriyad45/full-stack-ecommerce-mern)
 
 ---
 
@@ -396,8 +395,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Jakariya Kabir Riyad**
-- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-- GitHub: [Your GitHub Profile](https://github.com/yourusername)
+- LinkedIn: [Your LinkedIn Profile](https://www.linkedin.com/in/mdriyad45/)
+- GitHub: [Your GitHub Profile](https://github.com/mdriyad45)
 
 ---
 
