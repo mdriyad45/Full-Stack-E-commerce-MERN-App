@@ -2,11 +2,11 @@
 
 A modern, responsive e-commerce platform built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring user authentication, product management, shopping cart functionality, and admin panel.
 
-![E-Commerce Banner](https://via.placeholder.com/1200x400/EF4444/FFFFFF?text=E-Commerce+MERN+App)
+![Image Source](https://drive.google.com/drive/folders/1KmY74OYniEodtOVAjNGJv4628HghRbcQ?usp=sharing)
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://your-demo-link.vercel.app)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/yourusername/full-stack-ecommerce-mern)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://kenakatakori.netlify.app/)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/mdriyad45/full-stack-ecommerce-mern)
+
 
 ---
 
@@ -22,17 +22,13 @@ A modern, responsive e-commerce platform built with the MERN stack (MongoDB, Exp
   - [Frontend](#frontend)
   - [Backend](#backend)
   - [Cloud Services](#cloud-services)
-- [📁 Project Structure](#-project-structure)
 - [🛠️ Installation & Setup](#️-installation--setup)
   - [Prerequisites](#prerequisites)
   - [1. Clone the Repository](#1-clone-the-repository)
   - [2. Backend Setup](#2-backend-setup)
   - [3. Frontend Setup](#3-frontend-setup)
   - [4. Run the Application](#4-run-the-application)
-- [🚀 Deployment on Vercel](#-deployment-on-vercel)
-  - [Backend Deployment](#backend-deployment)
-  - [Frontend Deployment](#frontend-deployment)
-  - [Environment Variables Setup](#environment-variables-setup)
+- [📁 Project Structure](#-project-structure)
 - [📱 API Endpoints](#-api-endpoints)
   - [Authentication](#authentication)
   - [Products](#products)
@@ -133,7 +129,7 @@ A modern, responsive e-commerce platform built with the MERN stack (MongoDB, Exp
 
 ### 1. Clone the Repository
 \`\`\`bash
-git clone https://github.com/yourusername/full-stack-ecommerce-mern.git
+git clone https://github.com/mdriyad45/full-stack-ecommerce-mern.git
 cd full-stack-ecommerce-mern
 \`\`\`
 
@@ -316,40 +312,6 @@ Full-Stack-E-commerce-MERN-App/
 └── 📄 .gitignore                        # Git ignore rules
 \`\`\`
 
-### 📊 Component Architecture
-
-\`\`\`
-Frontend Component Hierarchy:
-│
-App.jsx
-├── Header/
-│   ├── Logo/
-│   └── Navigation
-├── Main Content (React Router Outlet)
-│   ├── Home/
-│   │   ├── ProductList/
-│   │   ├── BannerProduct/
-│   │   └── HorizontalCardProduct/
-│   ├── ProductDetails/
-│   ├── Cart/
-│   ├── CategoryProduct/
-│   ├── SearchProduct/
-│   ├── Login/
-│   ├── SignUp/
-│   └── AdminPanel/
-│       ├── AllUsers/
-│       │   └── ChangeUserRole/
-│       └── AllProducts/
-│           ├── UploadProducts/
-│           ├── AdminProductCard/
-│           └── AdminEditProduct/
-└── Footer/
-\`\`\`
-
----
-
-
-
 ## 📱 API Endpoints
 
 ### Authentication
@@ -434,8 +396,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Jakariya Kabir Riyad**
-- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-- GitHub: [Your GitHub Profile](https://github.com/yourusername)
+- LinkedIn: [Your LinkedIn Profile](https://www.linkedin.com/in/mdriyad45/)
+- GitHub: [Your GitHub Profile](https://github.com/mdriyad45)
 
 ---
 
