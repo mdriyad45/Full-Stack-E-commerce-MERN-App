@@ -2,10 +2,11 @@
 
 A modern, responsive e-commerce platform built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring user authentication, product management, shopping cart functionality, and admin panel.
 
-![E-Commerce Banner](https://via.placeholder.com/1200x400/EF4444/FFFFFF?text=E-Commerce+MERN+App)
+![Image Source](https://drive.google.com/drive/folders/1KmY74OYniEodtOVAjNGJv4628HghRbcQ?usp=sharing)
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://kenakatakori.netlify.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/mdriyad45/full-stack-ecommerce-mern)
+
 
 ---
 
@@ -128,7 +129,7 @@ A modern, responsive e-commerce platform built with the MERN stack (MongoDB, Exp
 
 ### 1. Clone the Repository
 \`\`\`bash
-git clone https://github.com/yourusername/full-stack-ecommerce-mern.git
+git clone https://github.com/mdriyad45/full-stack-ecommerce-mern.git
 cd full-stack-ecommerce-mern
 \`\`\`
 
