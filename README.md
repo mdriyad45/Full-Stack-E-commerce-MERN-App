@@ -29,10 +29,6 @@ A modern, responsive e-commerce platform built with the MERN stack (MongoDB, Exp
   - [2. Backend Setup](#2-backend-setup)
   - [3. Frontend Setup](#3-frontend-setup)
   - [4. Run the Application](#4-run-the-application)
-- [🚀 Deployment on Vercel](#-deployment-on-vercel)
-  - [Backend Deployment](#backend-deployment)
-  - [Frontend Deployment](#frontend-deployment)
-  - [Environment Variables Setup](#environment-variables-setup)
 - [📱 API Endpoints](#-api-endpoints)
   - [Authentication](#authentication)
   - [Products](#products)
@@ -133,7 +129,7 @@ A modern, responsive e-commerce platform built with the MERN stack (MongoDB, Exp
 
 ### 1. Clone the Repository
 \`\`\`bash
-git clone https://github.com/yourusername/full-stack-ecommerce-mern.git
+git clone https://github.com/mdriyad45/Full-Stack-E-commerce-MERN-App.git
 cd full-stack-ecommerce-mern
 \`\`\`
 
