@@ -22,13 +22,13 @@ A modern, responsive e-commerce platform built with the MERN stack (MongoDB, Exp
   - [Frontend](#frontend)
   - [Backend](#backend)
   - [Cloud Services](#cloud-services)
-- [📁 Project Structure](#-project-structure)
 - [🛠️ Installation & Setup](#️-installation--setup)
   - [Prerequisites](#prerequisites)
   - [1. Clone the Repository](#1-clone-the-repository)
   - [2. Backend Setup](#2-backend-setup)
   - [3. Frontend Setup](#3-frontend-setup)
   - [4. Run the Application](#4-run-the-application)
+- [📁 Project Structure](#-project-structure)
 - [📱 API Endpoints](#-api-endpoints)
   - [Authentication](#authentication)
   - [Products](#products)
@@ -129,7 +129,7 @@ A modern, responsive e-commerce platform built with the MERN stack (MongoDB, Exp
 
 ### 1. Clone the Repository
 \`\`\`bash
-git clone https://github.com/mdriyad45/Full-Stack-E-commerce-MERN-App.git
+git clone https://github.com/yourusername/full-stack-ecommerce-mern.git
 cd full-stack-ecommerce-mern
 \`\`\`
 
@@ -311,40 +311,6 @@ Full-Stack-E-commerce-MERN-App/
 ├── 📄 .env.example                      # Environment variables template
 └── 📄 .gitignore                        # Git ignore rules
 \`\`\`
-
-### 📊 Component Architecture
-
-\`\`\`
-Frontend Component Hierarchy:
-│
-App.jsx
-├── Header/
-│   ├── Logo/
-│   └── Navigation
-├── Main Content (React Router Outlet)
-│   ├── Home/
-│   │   ├── ProductList/
-│   │   ├── BannerProduct/
-│   │   └── HorizontalCardProduct/
-│   ├── ProductDetails/
-│   ├── Cart/
-│   ├── CategoryProduct/
-│   ├── SearchProduct/
-│   ├── Login/
-│   ├── SignUp/
-│   └── AdminPanel/
-│       ├── AllUsers/
-│       │   └── ChangeUserRole/
-│       └── AllProducts/
-│           ├── UploadProducts/
-│           ├── AdminProductCard/
-│           └── AdminEditProduct/
-└── Footer/
-\`\`\`
-
----
-
-
 
 ## 📱 API Endpoints
 
