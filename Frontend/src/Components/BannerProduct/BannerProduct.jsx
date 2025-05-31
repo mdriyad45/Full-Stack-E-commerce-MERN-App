@@ -1,17 +1,17 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-import image1 from "../../assets/banner/img1.webp";
-import image2 from "../../assets/banner/img2.webp";
-import image3 from "../../assets/banner/img3.jpg";
-import image4 from "../../assets/banner/img4.jpg";
-import image5 from "../../assets/banner/img5.webp";
+const image1 = new URL("../../assets/banner/img1.webp", import.meta.url).href
+const image2 = new URL("../../assets/banner/img2.webp", import.meta.url).href
+const image3 = new URL("../../assets/banner/img3.jpg", import.meta.url).href
+const image4 = new URL("../../assets/banner/img4.jpg", import.meta.url).href
+const image5 = new URL("../../assets/banner/img5.webp", import.meta.url).href
 
-import image1Mobile from "../../assets/banner/img1_mobile.jpg";
-import image2Mobile from "../../assets/banner/img2_mobile.webp";
-import image3Mobile from "../../assets/banner/img3_mobile.jpg";
-import image4Mobile from "../../assets/banner/img4_mobile.jpg";
-import image5Mobile from "../../assets/banner/img5_mobile.png";
+const image1Mobile = new URL("../../assets/banner/img1_mobile.jpg", import.meta.url).href
+const image2Mobile = new URL("../../assets/banner/img2_mobile.webp", import.meta.url).href
+const image3Mobile = new URL("../../assets/banner/img3_mobile.jpg", import.meta.url).href
+const image4Mobile = new URL("../../assets/banner/img4_mobile.jpg", import.meta.url).href
+const image5Mobile = new URL("../../assets/banner/img5_mobile.png", import.meta.url).href
 
 const BannerProduct = () => {
   const [currentImage, setCurrentImage] = useState(0);
