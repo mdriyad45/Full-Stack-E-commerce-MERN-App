@@ -1,4 +1,4 @@
-const backendDomain = "https://backend-ecommernce.vercel.app";
+const backendDomain = "https://ecommernce-backend-hzp6i76ym-mdriyad45s-projects.vercel.app";
 
 const SummaryApi = {
   signUp: {
