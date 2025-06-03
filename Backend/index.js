@@ -20,7 +20,7 @@ app.use(
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "https://backend-ecommernce.vercel.app",
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   })
 );
