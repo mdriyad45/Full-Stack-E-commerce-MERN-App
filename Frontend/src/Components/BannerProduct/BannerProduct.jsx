@@ -41,35 +41,35 @@ const BannerProduct = () => {
 
   return (
     <div 
-      className="container mx-auto px-4 rounded-xl overflow-hidden shadow-xl"
+      className="w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 rounded-xl overflow-hidden shadow-xl"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative aspect-video md:aspect-[3/1] bg-gray-100 group">
+      <div className="relative aspect-[16/9] md:aspect-[3/1] bg-gray-100">
         {/* Navigation Arrows */}
         <button
           onClick={previousImage}
-          className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 rounded-full shadow-lg hover:bg-white transition-all hover:scale-110"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 bg-white/80 rounded-full shadow-md hover:bg-white transition hover:scale-110 hidden sm:flex"
         >
-          <FaAngleLeft className="text-2xl text-gray-800" />
+          <FaAngleLeft className="text-lg sm:text-2xl text-gray-800" />
         </button>
         
         <button
           onClick={nextImage}
-          className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 rounded-full shadow-lg hover:bg-white transition-all hover:scale-110"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 bg-white/80 rounded-full shadow-md hover:bg-white transition hover:scale-110 hidden sm:flex"
         >
-          <FaAngleRight className="text-2xl text-gray-800" />
+          <FaAngleRight className="text-lg sm:text-2xl text-gray-800" />
         </button>
 
         {/* Indicators */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+        <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
           {desktopImages.map((_, index) => (
             <button
               key={index}
               onClick={() => goToImage(index)}
-              className={`w-3 h-3 rounded-full transition-all ${
+              className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all ${
                 currentImage === index 
-                  ? 'bg-white scale-125' 
+                  ? 'bg-white scale-110' 
                   : 'bg-white/50 hover:bg-white/80'
               }`}
             />
