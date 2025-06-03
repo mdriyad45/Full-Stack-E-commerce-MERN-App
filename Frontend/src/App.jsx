@@ -45,7 +45,7 @@ function App() {
     fetchAddToCartCount();
     //for AOS fade animation
     AOS.init({
-      duration: 500, // animation duration
+      duration: 1000, // animation duration
       repeat: true, // whether animation should happen only once
     });
   }, []);

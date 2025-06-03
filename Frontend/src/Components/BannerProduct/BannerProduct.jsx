@@ -1,31 +1,33 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-const image1 = new URL("../../assets/banner/img1.webp", import.meta.url).href
-const image2 = new URL("../../assets/banner/img2.webp", import.meta.url).href
-const image3 = new URL("../../assets/banner/img3.jpg", import.meta.url).href
-const image4 = new URL("../../assets/banner/img4.jpg", import.meta.url).href
-const image5 = new URL("../../assets/banner/img5.webp", import.meta.url).href
+const image1 = new URL("../../assets/banner/img1.webp", import.meta.url).href;
+const image2 = new URL("../../assets/banner/img2.webp", import.meta.url).href;
+const image3 = new URL("../../assets/banner/img3.jpg", import.meta.url).href;
+const image4 = new URL("../../assets/banner/img4.jpg", import.meta.url).href;
+const image5 = new URL("../../assets/banner/img5.webp", import.meta.url).href;
 
-const image1Mobile = new URL("../../assets/banner/img1_mobile.jpg", import.meta.url).href
-const image2Mobile = new URL("../../assets/banner/img2_mobile.webp", import.meta.url).href
-const image3Mobile = new URL("../../assets/banner/img3_mobile.jpg", import.meta.url).href
-const image4Mobile = new URL("../../assets/banner/img4_mobile.jpg", import.meta.url).href
-const image5Mobile = new URL("../../assets/banner/img5_mobile.png", import.meta.url).href
+const image1Mobile = new URL("../../assets/banner/img1_mobile.jpg", import.meta.url).href;
+const image2Mobile = new URL("../../assets/banner/img2_mobile.webp", import.meta.url).href;
+const image3Mobile = new URL("../../assets/banner/img3_mobile.jpg", import.meta.url).href;
+const image4Mobile = new URL("../../assets/banner/img4_mobile.jpg", import.meta.url).href;
+const image5Mobile = new URL("../../assets/banner/img5_mobile.png", import.meta.url).href;
 
 const BannerProduct = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
 
   const desktopImages = [image1, image2, image3, image4, image5];
   const mobileImages = [image1Mobile, image2Mobile, image3Mobile, image4Mobile, image5Mobile];
 
   const nextImage = () => {
-    setCurrentImage(prev => (prev === desktopImages.length - 1 ? 0 : prev + 1));
+    setCurrentImage((prev) => (prev === desktopImages.length - 1 ? 0 : prev + 1));
   };
 
   const previousImage = () => {
-    setCurrentImage(prev => (prev === 0 ? desktopImages.length - 1 : prev - 1));
+    setCurrentImage((prev) => (prev === 0 ? desktopImages.length - 1 : prev - 1));
   };
 
   const goToImage = (index) => {
@@ -39,38 +41,58 @@ const BannerProduct = () => {
     }
   }, [isHovered, currentImage]);
 
+  // Handle swipe on mobile
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    setTouchEndX(e.changedTouches[0].clientX);
+    const deltaX = touchStartX - e.changedTouches[0].clientX;
+
+    if (Math.abs(deltaX) > 50) {
+      if (deltaX > 0) {
+        nextImage(); // Swipe left
+      } else {
+        previousImage(); // Swipe right
+      }
+    }
+  };
+
   return (
-    <div 
-      className="w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 rounded-xl overflow-hidden shadow-xl"
+    <div
+      className="container mx-auto px-4 rounded-xl overflow-hidden shadow-xl"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative aspect-[16/9] md:aspect-[3/1] bg-gray-100">
+      <div
+        className="relative aspect-video md:aspect-[3/1] bg-gray-100 group"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Navigation Arrows */}
         <button
           onClick={previousImage}
-          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 bg-white/80 rounded-full shadow-md hover:bg-white transition hover:scale-110 hidden sm:flex"
+          className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 rounded-full shadow-lg hover:bg-white transition-all hover:scale-110"
         >
-          <FaAngleLeft className="text-lg sm:text-2xl text-gray-800" />
+          <FaAngleLeft className="text-2xl text-gray-800" />
         </button>
-        
+
         <button
           onClick={nextImage}
-          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 bg-white/80 rounded-full shadow-md hover:bg-white transition hover:scale-110 hidden sm:flex"
+          className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 rounded-full shadow-lg hover:bg-white transition-all hover:scale-110"
         >
-          <FaAngleRight className="text-lg sm:text-2xl text-gray-800" />
+          <FaAngleRight className="text-2xl text-gray-800" />
         </button>
 
         {/* Indicators */}
-        <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
           {desktopImages.map((_, index) => (
             <button
               key={index}
               onClick={() => goToImage(index)}
-              className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all ${
-                currentImage === index 
-                  ? 'bg-white scale-110' 
-                  : 'bg-white/50 hover:bg-white/80'
+              className={`w-3 h-3 rounded-full transition-all ${
+                currentImage === index ? "bg-white scale-125" : "bg-white/50 hover:bg-white/80"
               }`}
             />
           ))}
@@ -82,7 +104,7 @@ const BannerProduct = () => {
             <div
               key={index}
               className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${
-                currentImage === index ? 'opacity-100' : 'opacity-0'
+                currentImage === index ? "opacity-100" : "opacity-0"
               }`}
             >
               <img
@@ -95,13 +117,13 @@ const BannerProduct = () => {
           ))}
         </div>
 
-        {/* Mobile Images */}
+        {/* Mobile Images with Swipe */}
         <div className="md:hidden relative h-full w-full overflow-hidden">
           {mobileImages.map((imageUrl, index) => (
             <div
               key={index}
               className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${
-                currentImage === index ? 'opacity-100' : 'opacity-0'
+                currentImage === index ? "opacity-100" : "opacity-0"
               }`}
             >
               <img
