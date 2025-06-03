@@ -22,7 +22,7 @@ const AllProducs = () => {
   return (
     <div>
       <div className="bg-white px-8 py-2 flex justify-between items-center">
-        <h2 className="font-bold text-xl">All Products</h2>
+        <h2 className="font-bold text-xl">All Products: {allProduct.length}</h2>
         <button
           onClick={() => setOpenUploadProduct(true)}
           className="border-2 rounded-full px-3 py-1 border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition-all"
